@@ -10,13 +10,23 @@ provider:
  runtime: nodejs20.x
  region: eu-north-1
 
-
-
 functions:
- main: # The name of the lambda function
-   # The module 'handler' is exported in the file 'src/lambda'
-   handler: src/lambda.handler
+  backend:
+   handler: backend/src/lambda.handler
    events:
      - http:
          method: any
-         path: /{any+}
+         path: /api/{any+}
+
+  frontend:
+    handler: frontend/handler.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+    environment:
+      NODE_ENV: 'production'
+
+custom:
+  serverless-offline:
+    httpPort: 5000
