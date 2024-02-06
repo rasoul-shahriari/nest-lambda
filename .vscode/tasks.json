@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start offline",
+      "type": "shell",
+      "command": "serverless offline start --reloadHandler",
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
