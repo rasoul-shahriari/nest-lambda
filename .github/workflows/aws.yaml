@@ -47,13 +47,15 @@ jobs:
         run: aws s3 ls
 
       - name: Sync to S3 Bucket
-        uses: jakejarvis/s3-sync-action@v0.5.1
-        with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: nextjs-second
-          AWS_REGION: ${{ env.AWS_REGION }}
-          SOURCE_DIR: 'frontend/out'
+        run: aws s3 sync frontend/out s3://nextjs-second/ --exact-timestamps --delete  --region ${{ env.AWS_REGION }}
+
+        # uses: jakejarvis/s3-sync-action@v0.5.1
+        # with:
+        #   args: --acl public-read --follow-symlinks --delete
+        # env:
+        #   AWS_S3_BUCKET: nextjs-second
+        #   AWS_REGION: ${{ env.AWS_REGION }}
+        #   SOURCE_DIR: 'frontend/out'
       
       - name: Invalidate CloudFront Cache
         uses: chetan/invalidate-cloudfront-action@v1
