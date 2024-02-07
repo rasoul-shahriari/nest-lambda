@@ -21,7 +21,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::245366354313:role/GitHubAction-AssumeRoleWithAction
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
           role-duration-seconds: 1200
@@ -39,28 +39,8 @@ jobs:
         run: |
           npm run build
 
-      - name: get caller identity2
-        run: |
-          aws sts get-caller-identity
-
-      - name: List S3 Buckets as a test
-        run: aws s3 ls
-
       - name: Sync to S3 Bucket
-        run: aws s3 sync frontend/out s3://nextjs-second/ --exact-timestamps --delete --region ${{ env.AWS_REGION }}
-
-        # uses: jakejarvis/s3-sync-action@v0.5.1
-        # with:
-        #   args: --acl public-read --follow-symlinks --delete
-        # env:
-        #   AWS_S3_BUCKET: nextjs-second
-        #   AWS_REGION: ${{ env.AWS_REGION }}
-        #   SOURCE_DIR: 'frontend/out'
+        run: aws s3 sync frontend/out s3://${{ secrets.AWS_S3_BUCKET }}/ --exact-timestamps --delete --region ${{ env.AWS_REGION }}
       
       - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id E2O7AD97KQZLLX --paths "/*" --region ${{ env.AWS_REGION }}
-        # uses: chetan/invalidate-cloudfront-action@v1
-        # env:
-        #   DISTRIBUTION: E2O7AD97KQZLLX
-        #   PATHS: '/*'
-        #   AWS_REGION: ${{ env.AWS_REGION }}
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*" --region ${{ env.AWS_REGION }}
