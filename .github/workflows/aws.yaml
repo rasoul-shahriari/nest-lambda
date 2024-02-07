@@ -47,7 +47,7 @@ jobs:
         run: aws s3 ls
 
       - name: Sync to S3 Bucket
-        run: aws s3 sync frontend/out s3://nextjs-second/ --exact-timestamps --delete  --region ${{ env.AWS_REGION }}
+        run: aws s3 sync frontend/out s3://nextjs-second/ --exact-timestamps --delete --region ${{ env.AWS_REGION }}
 
         # uses: jakejarvis/s3-sync-action@v0.5.1
         # with:
@@ -58,8 +58,9 @@ jobs:
         #   SOURCE_DIR: 'frontend/out'
       
       - name: Invalidate CloudFront Cache
-        uses: chetan/invalidate-cloudfront-action@v1
-        env:
-          DISTRIBUTION: E2O7AD97KQZLLX
-          PATHS: '/*'
-          AWS_REGION: ${{ env.AWS_REGION }}
+        run: aws cloudfront create-invalidation --distribution-id E2O7AD97KQZLLX --paths "/*" --region ${{ env.AWS_REGION }}
+        # uses: chetan/invalidate-cloudfront-action@v1
+        # env:
+        #   DISTRIBUTION: E2O7AD97KQZLLX
+        #   PATHS: '/*'
+        #   AWS_REGION: ${{ env.AWS_REGION }}
