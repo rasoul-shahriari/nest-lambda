@@ -37,12 +37,9 @@ jobs:
         run: |
           npm run build
 
-      - name: List AWS Identity
-        run: aws sts get-caller-identity
+      - name: Debug S3 Sync with AWS CLI
+        run: aws s3 sync out s3://nextjs-second --acl public-read --delete --debug
 
-      - name: List Buckets
-        run: aws s3 ls
-      
       - name: Sync to S3 Bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
