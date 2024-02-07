@@ -24,6 +24,8 @@ jobs:
           role-to-assume: arn:aws:iam::245366354313:role/GitHubAction-AssumeRoleWithAction #change to reflect your IAM role’s ARN
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
+          role-duration-seconds: 1200
+          
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,6 +38,10 @@ jobs:
       - name: Build and Export Next.js Application
         run: |
           npm run build
+
+      - name: get caller identity2
+        run: |
+          aws sts get-caller-identity
 
       - name: Sync to S3 Bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
