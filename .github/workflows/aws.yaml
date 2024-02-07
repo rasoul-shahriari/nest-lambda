@@ -29,13 +29,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
+      
+      - name: Install Dependencies
+        run: npm install
+      
       - name: Build and Export Next.js Application
         run: |
-          npm install
           npm run build
-        working-directory: ./frontend
-
 
       - name: Debug S3 Sync with AWS CLI
         run: aws s3 sync out s3://nextjs-second --acl public-read --delete --debug
