@@ -21,7 +21,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1.7.0
         with:
-          role-to-assume: arn:aws:iam::245366354313:role/GitHubAction-AssumeRoleWithAction #change to reflect your IAM role’s ARN
+          role-to-assume: arn:aws:iam::245366354313:role/GitHubAction-AssumeRoleWithAction
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
           role-duration-seconds: 1200
@@ -42,6 +42,9 @@ jobs:
       - name: get caller identity2
         run: |
           aws sts get-caller-identity
+
+      - name: List S3 Buckets as a test
+        run: aws s3 ls
 
       - name: Sync to S3 Bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
