@@ -8,8 +8,7 @@
     "frontend"
   ],
   "scripts": {
-    "dev": "serverless offline start --reloadHandler & cd frontend & npm run dev",
-    "build": "cd frontend && npm run build"
+    "dev": "serverless offline start --reloadHandler & cd frontend & npm run dev"
   },
   "keywords": [],
   "author": "",
