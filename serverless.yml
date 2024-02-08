@@ -3,8 +3,7 @@ service: nest-lambda-demo
 plugins:
  - serverless-plugin-typescript
  - serverless-plugin-optimize
- - ${opt:stage, 'local'} == 'local' && 'serverless-offline' || ''
-
+ - serverless-plugin-ifelse
 
 provider:
  name: aws
@@ -26,3 +25,7 @@ custom:
     removeFiles: true
   serverless-offline:
     httpPort: 5000
+  ifelse:
+    local:
+      - plugin: serverless-offline
+        if: ${opt:stage, 'local'} == 'local'

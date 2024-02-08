@@ -27,9 +27,10 @@
     "aws-serverless-express": "^3.4.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "serverless": "3.38.0",
+    "serverless": "^3.38.0",
     "serverless-plugin-optimize": "^4.2.1-rc.1",
     "serverless-plugin-typescript": "^2.1.5",
+    "serverless-plugin-ifelse": "^1.0.7",
     "@nestjs/cli": "^10.0.0"
   },
   "devDependencies": {
