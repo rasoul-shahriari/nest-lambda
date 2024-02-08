@@ -10,7 +10,7 @@ export default async function Home() {
       <h1>Data from API</h1>
       <p></p>
       <pre>
-        {data.map((d) => (
+        {data.map((d: any) => (
           <p key={d}>{d}</p>
         ))}
       </pre>
