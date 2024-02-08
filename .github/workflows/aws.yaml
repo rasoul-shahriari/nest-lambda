@@ -49,7 +49,7 @@ jobs:
         run: pnpm install
 
       - name: Deploy backend to AWS Lambda
-        run: npx serverless deploy
+        run: pnpm serverless deploy
         env:
           SERVERLESS_SERVICE: nest-lambda-demo
           AWS_LAMBDA_ROLE: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
