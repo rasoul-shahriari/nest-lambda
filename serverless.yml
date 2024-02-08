@@ -18,15 +18,6 @@ functions:
          method: any
          path: /api/{any+}
 
-  frontend:
-    handler: frontend/handler.handler
-    events:
-      - http:
-          path: /{proxy+}
-          method: any
-    environment:
-      NODE_ENV: 'production'
-
 custom:
   serverless-offline:
     httpPort: 5000
