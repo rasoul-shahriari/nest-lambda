@@ -24,7 +24,6 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
-          role-duration-seconds: 1200
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -38,6 +37,7 @@ jobs:
           npm run build
 
       - name: Deploy backend to AWS Lambda
+        working-directory: backend
         run: npm serverless deploy
         env:
           SERVERLESS_SERVICE: nest-lambda-demo
