@@ -31,17 +31,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.4.0
-        with:
-          version:  8
-
       - name: Install backend Dependencies
         working-directory: backend
-        run: pnpm install
+        run: npm install
         
       - name: Build backend
-        run: pnpm run build
+        run: npm run build
 
       - name: Install Serverless Framework and plugins
         run: |
@@ -50,18 +45,18 @@ jobs:
           serverless plugin install -n serverless-plugin-optimize
 
       - name: Deploy backend to AWS Lambda
-        run: pnpm serverless deploy
+        run: npm serverless deploy
         env:
           SERVERLESS_SERVICE: nest-lambda-demo
           AWS_LAMBDA_ROLE: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
 
       - name: Install frontend Dependencies
         working-directory: frontend
-        run: pnpm install
+        run: npm install
 
       - name: Build and Export Next.js Application
         run: |
-          pnpm run build
+          npm run build
 
       - name: Sync to S3 Bucket
         run: aws s3 sync frontend/out s3://${{ secrets.AWS_S3_BUCKET }}/ --exact-timestamps --delete --region ${{ env.AWS_REGION }}
