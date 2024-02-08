@@ -37,7 +37,7 @@ jobs:
           npm run build
 
       - name: Deploy backend to AWS Lambda
-        run: npx serverless deploy
+        run: npx serverless deploy --stage production
         env:
           SERVERLESS_SERVICE: nest-lambda-demo
           AWS_LAMBDA_ROLE: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
