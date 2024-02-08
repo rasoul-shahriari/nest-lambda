@@ -44,7 +44,7 @@ jobs:
 
       - name: Install frontend Dependencies
         working-directory: frontend
-        run: npm install --omit=dev
+        run: npm install
 
 
       - name: Build and Export Next.js Application
