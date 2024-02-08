@@ -3,7 +3,8 @@ service: nest-lambda-demo
 plugins:
  - serverless-plugin-typescript
  - serverless-plugin-optimize
- - serverless-offline
+  - ${opt:stage, 'local'} == 'local' && 'serverless-offline' || ''
+
 
 provider:
  name: aws
