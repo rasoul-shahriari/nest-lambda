@@ -30,7 +30,6 @@
     "serverless": "^3.38.0",
     "serverless-plugin-optimize": "^4.2.1-rc.1",
     "serverless-plugin-typescript": "^2.1.5",
-    "serverless-plugin-ifelse": "^1.0.7",
     "@nestjs/cli": "^10.0.0"
   },
   "devDependencies": {

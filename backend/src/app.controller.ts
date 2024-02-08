@@ -11,8 +11,14 @@ export class AppController {
   }
 
   @Get('/second')
-  getSecond(): string {
-    return 'this is second route';
+  getSecond(): string[] {
+    return [
+      'this is 1 route',
+      'this is 2 route',
+      'this is 3 route',
+      'this is 4 route',
+      'this is 5 route',
+    ];
   }
 
   @Get('/fourth')

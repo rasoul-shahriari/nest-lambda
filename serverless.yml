@@ -1,26 +1,30 @@
 service: nest-lambda-demo
 
+package:
+  individually: false
+  excludeDevDependencies: true
+
 plugins:
- - serverless-plugin-typescript
- - serverless-plugin-optimize
- - serverless-plugin-ifelse
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
 
 provider:
- name: aws
- runtime: nodejs20.x
- region: eu-north-1
- logRetentionInDays:  14 # Optional: Set the retention period for the Log Group
- logs:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  logRetentionInDays: 14
+  logs:
     httpApi: true
-    logGroupName: {Ref: 'AWS::StackName'} 
- 
+    logGroupName: { Ref: "AWS::StackName" }
+
 functions:
   backend:
-   handler: backend/src/lambda.handler
-   events:
-     - http:
-         method: any
-         path: /api/{any+}
+    handler: backend/src/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /api/{any+}
 
 custom:
   optimize:
@@ -29,7 +33,14 @@ custom:
     removeFiles: true
   serverless-offline:
     httpPort: 5000
-  ifelse:
+    logGroupName: { Ref: "AWS::StackName" }
+  stages:
     local:
-      - plugin: serverless-offline
-        if: ${opt:stage, 'local'} == 'local'
+      environment:
+        NODE_ENV: development
+    staging:
+      environment:
+        NODE_ENV: staging
+    production:
+      environment:
+        NODE_ENV: production
