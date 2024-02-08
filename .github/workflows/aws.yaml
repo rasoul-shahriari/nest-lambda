@@ -25,15 +25,33 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
           role-duration-seconds: 1200
-          
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version:  8
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: pnpm install
+
+      - name: Build backend
+        working-directory: backend
+        run: pnpm run build
       
       - name: Install Dependencies
         run: npm install
+
+      - name: Deploy backend to AWS Lambda
+        run: npx serverless deploy
+        env:
+          SERVERLESS_SERVICE: nest-lambda-demo
+          AWS_LAMBDA_ROLE: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GitHubAction-AssumeRoleWithAction
       
       - name: Build and Export Next.js Application
         run: |
