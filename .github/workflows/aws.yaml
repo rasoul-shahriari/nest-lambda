@@ -36,7 +36,7 @@ jobs:
         with:
           version:  8
 
-      - name: Install backend dependencies
+      - name: Install backend Dependencies
         working-directory: backend
         run: pnpm install
         
@@ -49,6 +49,7 @@ jobs:
         run: pnpm install
 
       - name: Deploy backend to AWS Lambda
+        working-directory: backend
         run: pnpm serverless deploy
         env:
           SERVERLESS_SERVICE: nest-lambda-demo
