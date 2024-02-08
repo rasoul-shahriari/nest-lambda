@@ -38,14 +38,15 @@ jobs:
 
       - name: Install backend dependencies
         working-directory: backend
-        run: cd backend && pnpm install
-
+        run: pnpm install
+        
       - name: Build backend
         working-directory: backend
         run: pnpm run build
       
-      - name: Install Dependencies
-        run: npm install
+      - name: Install frontend Dependencies
+        working-directory: frontend
+        run: pnpm install
 
       - name: Deploy backend to AWS Lambda
         run: npx serverless deploy
@@ -55,7 +56,7 @@ jobs:
       
       - name: Build and Export Next.js Application
         run: |
-          npm run build
+          pnpm run build
 
       - name: Sync to S3 Bucket
         run: aws s3 sync frontend/out s3://${{ secrets.AWS_S3_BUCKET }}/ --exact-timestamps --delete --region ${{ env.AWS_REGION }}
