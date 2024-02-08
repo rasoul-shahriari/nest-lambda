@@ -29,7 +29,8 @@
     "rxjs": "^7.8.1",
     "serverless": "3.38.0",
     "serverless-plugin-optimize": "^4.2.1-rc.1",
-    "serverless-plugin-typescript": "^2.1.5"
+    "serverless-plugin-typescript": "^2.1.5",
+    "nestjs": "^8.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
