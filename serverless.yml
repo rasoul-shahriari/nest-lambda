@@ -19,5 +19,9 @@ functions:
          path: /api/{any+}
 
 custom:
+  optimize:
+    excludeDevDependencies: true
+    minify: true
+    removeFiles: true
   serverless-offline:
     httpPort: 5000

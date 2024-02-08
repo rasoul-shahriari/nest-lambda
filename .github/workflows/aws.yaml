@@ -33,7 +33,7 @@ jobs:
       - name: Install and build backend Dependencies
         working-directory: backend
         run: |
-          npm install
+          npm install --production
           npm run build
 
       - name: Deploy backend to AWS Lambda
@@ -44,7 +44,8 @@ jobs:
 
       - name: Install frontend Dependencies
         working-directory: frontend
-        run: npm install
+        run: npm install --production
+
 
       - name: Build and Export Next.js Application
         run: |
